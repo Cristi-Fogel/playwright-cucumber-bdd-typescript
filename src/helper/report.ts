@@ -5,7 +5,7 @@ report.generate({
   reportPath: './',
   reportName: 'Playwright Automation Report',
   pageTitle: 'BookCart App test report',
-  displayDuration: false,
+  displayDuration: true,
   metadata: {
     browser: {
       name: 'chrome',

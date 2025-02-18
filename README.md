@@ -7,6 +7,8 @@
 
 This is my personal project to improve my skills in automated testing using Cucumber and BDD.
 This project was created solely for my learning process and to showcase my testing skills.
+Forked off: https://github.com/adamcegielka/playwright-cucumber-bdd-typescript
+**To be minimized and prepared for project inits.**
 
 ## Installation
 

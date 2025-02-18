@@ -9,8 +9,9 @@ Given('User navigates to the application', async function () {
 });
 
 Given('User click on the login link', async function () {
-  await pageFixture.page.locator('//span[text()="Login"]').click();
-  // await pageFixture.page.locator('.mat-focus-indicator.mat-button.mat-button-base.ng-star-inserted').click();
+  const loginLink = pageFixture.page.locator('//span[normalize-space()="Login"]');
+  await loginLink.waitFor({ state: 'visible', timeout: 30000 }); //insert wait to ensure element is properly loaded
+  await loginLink.click();
 });
 
 Given('User enter the username as {string}', async function (username) {
@@ -26,7 +27,9 @@ Given('User enter the password as {string}', async function (password) {
 });
 
 When('User click on the login button', async function () {
-  await pageFixture.page.locator('button[color="primary"]').click();
+  const loginButton = pageFixture.page.locator('button[color="primary"]');
+  await loginButton.waitFor({ state: 'visible', timeout: 30000 }); //insert wait to ensure element is properly loaded
+  await loginButton.click();
   // await pageFixture.page.locator('.mat-focus-indicator.mat-raised-button.mat-button-base.mat-primary').click();
   await pageFixture.page.waitForLoadState();
   await pageFixture.page.waitForTimeout(2000);
