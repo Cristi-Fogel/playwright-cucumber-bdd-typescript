@@ -6,8 +6,8 @@ setDefaultTimeout(60 * 1000 * 2);
 
 Given('User navigates to the application', async function () {
   await pageFixture.page.setDefaultNavigationTimeout(60000); // Increase navigation timeout
-    await pageFixture.page.goto('https://bookcart.azurewebsites.net/');
-    await pageFixture.page.waitForLoadState('load'); // Ensure the page is fully loaded 
+  await pageFixture.page.goto('https://bookcart.azurewebsites.net/');
+  await pageFixture.page.waitForLoadState('load'); // Ensure the page is fully loaded 
 });
 
 Given('User click on the login link', async function () {
