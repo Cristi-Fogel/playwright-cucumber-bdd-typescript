@@ -11,7 +11,7 @@ Given('user search for a {string}', async function (book) {
 });
 
 When('user add the book to the cart', async function () {
-  await pageFixture.page.locator('//button[@color="primary"]').click();
+  await pageFixture.page.locator('//button[@class="mdc-button mdc-button--raised mat-mdc-raised-button mat-primary mat-mdc-button-base"]').click();
 });
 
 Then('the cart badge should get updated', async function () {

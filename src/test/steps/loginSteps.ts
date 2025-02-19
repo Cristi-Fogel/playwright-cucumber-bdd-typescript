@@ -5,7 +5,9 @@ import { pageFixture } from '../../hooks/pageFixture';
 setDefaultTimeout(60 * 1000 * 2);
 
 Given('User navigates to the application', async function () {
-  await pageFixture.page.goto('https://bookcart.azurewebsites.net/');
+  await pageFixture.page.setDefaultNavigationTimeout(60000); // Increase navigation timeout
+    await pageFixture.page.goto('https://bookcart.azurewebsites.net/');
+    await pageFixture.page.waitForLoadState('load'); // Ensure the page is fully loaded 
 });
 
 Given('User click on the login link', async function () {
@@ -27,7 +29,7 @@ Given('User enter the password as {string}', async function (password) {
 });
 
 When('User click on the login button', async function () {
-  const loginButton = pageFixture.page.locator('button[color="primary"]');
+  const loginButton = pageFixture.page.locator('//button[@class="mdc-button mdc-button--raised mat-mdc-raised-button mat-primary mat-mdc-button-base"]');
   await loginButton.waitFor({ state: 'visible', timeout: 30000 }); //insert wait to ensure element is properly loaded
   await loginButton.click();
   // await pageFixture.page.locator('.mat-focus-indicator.mat-raised-button.mat-button-base.mat-primary').click();
@@ -38,13 +40,14 @@ When('User click on the login button', async function () {
 Then('Login should be success', async function () {
   const textMessage = await pageFixture.page
     .locator(
-      '//button[contains(@class,"mat-focus-indicator mat-menu-trigger")]//span[1]',
+      "a[class='mat-mdc-menu-trigger mdc-button mdc-button--unelevated mat-mdc-unelevated-button mat-primary mat-mdc-button-base ng-star-inserted'] span[class='mdc-button__label']",
     )
     .textContent();
   console.log('Username: ' + textMessage);
 });
 
 When('Login should fail', async function () {
-  const errorMessage = pageFixture.page.locator('mat-error[role="alert"]');
-  await expect(errorMessage).toBeVisible();
+  // const errorMessage = pageFixture.page.locator('mat-error[role="alert"]'); //error message no longer shown from website, validating the register button instead
+  const errorMessage = pageFixture.page.locator('//span[normalize-space()="Register"]');
+  await expect(errorMessage).toBeVisible(); 
 });
