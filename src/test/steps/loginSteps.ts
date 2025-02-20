@@ -11,43 +11,31 @@ Given('User navigates to the application', async function () {
 });
 
 Given('User click on the login link', async function () {
-  const loginLink = pageFixture.page.locator('//span[normalize-space()="Login"]');
-  await loginLink.waitFor({ state: 'visible', timeout: 30000 }); //insert wait to ensure element is properly loaded
-  await loginLink.click();
+  await this.loginPage.loginLink.waitFor({ state: 'visible', timeout: 30000 }); //insert wait to ensure element is properly loaded
+  await this.loginPage.loginLink.click();
 });
 
 Given('User enter the username as {string}', async function (username) {
-  await pageFixture.page
-    .locator('input[formcontrolname="username"]')
-    .fill(username);
+  await this.loginPage.usernameField.fill(username);
 });
 
 Given('User enter the password as {string}', async function (password) {
-  await pageFixture.page
-    .locator('input[formcontrolname="password"]')
-    .fill(password);
+  await this.loginPage.passwordField.fill(password);
 });
 
 When('User click on the login button', async function () {
-  const loginButton = pageFixture.page.locator('//button[@class="mdc-button mdc-button--raised mat-mdc-raised-button mat-primary mat-mdc-button-base"]');
-  await loginButton.waitFor({ state: 'visible', timeout: 30000 }); //insert wait to ensure element is properly loaded
-  await loginButton.click();
-  // await pageFixture.page.locator('.mat-focus-indicator.mat-raised-button.mat-button-base.mat-primary').click();
+  await this.loginPage.loginButton.waitFor({ state: 'visible', timeout: 30000 }); //insert wait to ensure element is properly loaded
+  await this.loginPage.loginButton.click();
   await pageFixture.page.waitForLoadState();
   await pageFixture.page.waitForTimeout(2000);
 });
 
 Then('Login should be success', async function () {
-  const textMessage = await pageFixture.page
-    .locator(
-      "a[class='mat-mdc-menu-trigger mdc-button mdc-button--unelevated mat-mdc-unelevated-button mat-primary mat-mdc-button-base ng-star-inserted'] span[class='mdc-button__label']",
-    )
-    .textContent();
+  const textMessage = await this.loginPage.usernameLink.textContent();
   console.log('Username: ' + textMessage);
 });
 
 When('Login should fail', async function () {
-  // const errorMessage = pageFixture.page.locator('mat-error[role="alert"]'); //error message no longer shown from website, validating the register button instead
-  const errorMessage = pageFixture.page.locator('//span[normalize-space()="Register"]');
+  const errorMessage = this.loginPage.registerButton;
   await expect(errorMessage).toBeVisible(); 
 });

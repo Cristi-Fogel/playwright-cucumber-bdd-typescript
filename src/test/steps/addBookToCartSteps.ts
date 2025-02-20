@@ -5,18 +5,16 @@ import { pageFixture } from '../../hooks/pageFixture';
 setDefaultTimeout(60 * 1000 * 2);
 
 Given('user search for a {string}', async function (book) {
-  await pageFixture.page.locator('input[type="search"]').fill(book);
+  await this.bookDetailsPage.searchField.fill(book);
   await pageFixture.page.waitForTimeout(5000);
-  await pageFixture.page.locator('mat-option[role="option"] span').click();
+  await this.bookDetailsPage.searchFieldOption.click();
 });
 
 When('user add the book to the cart', async function () {
-  await pageFixture.page.locator('//button[@class="mdc-button mdc-button--raised mat-mdc-raised-button mat-primary mat-mdc-button-base"]').click();
+  await this.bookDetailsPage.addBookToCartButton.click();
 });
 
 Then('the cart badge should get updated', async function () {
-  const countInCart = await pageFixture.page
-    .locator('#mat-badge-content-0')
-    .textContent();
+  const countInCart = await this.bookDetailsPage.cartBadge.textContent();
   expect(Number(countInCart?.length)).toBeGreaterThan(0);
 });
