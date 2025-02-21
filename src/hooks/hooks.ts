@@ -2,7 +2,7 @@ import { BeforeAll, AfterAll, Before, After, Status } from '@cucumber/cucumber';
 import { Browser, BrowserContext, chromium } from '@playwright/test';
 import { pageFixture } from './pageFixture';
 import { BookDetailsPage } from '../pages/BookDetailsPage';
-import { LoginPage } from '../pages/loginPage';
+import { LoginPage } from '../pages/loginPage';  //some import issue, only works with l 
 
 let browser: Browser;
 let context: BrowserContext;
